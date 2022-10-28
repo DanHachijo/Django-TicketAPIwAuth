@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 
 class MemberViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Member.objects.filter(is_active=True)
+    queryset = Member.objects.filter(is_staff=True)
     # queryset = Member.objects.all()
     serializer_class = MemberSerializer
 
