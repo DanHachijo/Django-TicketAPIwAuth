@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '172.104.81.40']
 
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -25,10 +26,16 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'ckeditor',
+    'dbbackup',
     # Installed app
     'members',
     'customers',
     'tickets',
+]
+
+CRONJOBS = [
+    ('0 */1 * * *', 'djangoapi.cron.restore_scheduled_job'),
+    #('*/1 * * * *', 'djangoapi.cron.backup_scheduled_job')
 ]
 
 MIDDLEWARE = [
@@ -129,6 +136,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    "https://asameshisoft.com",
     "http://172.104.81.40:82"
 ]
 
@@ -149,3 +157,6 @@ REST_FRAMEWORK = {
 # REST_FRAMEWORK = {
 #     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 # }
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR/'dump'}
